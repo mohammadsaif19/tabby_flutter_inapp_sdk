@@ -209,8 +209,8 @@ class Payment {
 
   final String amount;
   final Currency currency;
-  final Buyer? buyer;
-  final BuyerHistory? buyerHistory;
+  final Buyer buyer;
+  final BuyerHistory buyerHistory;
   final ShippingAddress? shippingAddress;
   final Order order;
   final List<OrderHistoryItem> orderHistory;
@@ -220,8 +220,8 @@ class Payment {
     return {
       'amount': amount,
       'currency': currency.displayName,
-      'buyer': buyer?.toJson(),
-      'buyer_history': buyerHistory?.toJson(),
+      'buyer': buyer.toJson(),
+      'buyer_history': buyerHistory.toJson(),
       'shipping_address': shippingAddress?.toJson(),
       'order': order.toJson(),
       'order_history': orderHistory,
