@@ -115,12 +115,12 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             Text(
-              mockPayload.buyer?.email ?? '',
+              mockPayload.buyer.email,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
             Text(
-              mockPayload.buyer?.phone ?? '',
+              mockPayload.buyer.phone,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
