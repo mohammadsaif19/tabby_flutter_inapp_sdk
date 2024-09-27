@@ -11,13 +11,13 @@ dependencies:
     sdk: flutter
 
   # Remote API
-  http: ^1.0.0
+  http: "any"
 
   # Webview
-  flutter_inappwebview: ^5.7.1
+  flutter_inappwebview: ^6.1.0+1
 
   # UUID
-  uuid: ^4.0.0
+  uuid: "any"
 
 dev_dependencies:
   flutter_test:

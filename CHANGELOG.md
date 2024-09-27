@@ -1,6 +1,7 @@
 ## 1.6.0
 
 - ❗️Breaking change: update required fields for `TabbySDK().createSession(TabbyCheckoutPayload payload) {...}`
+- flutter_inappwebview updated dependency
 
 ## 1.5.0
 

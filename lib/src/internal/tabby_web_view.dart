@@ -6,14 +6,9 @@ const tabbyColor = Color.fromRGBO(62, 237, 191, 1);
 
 typedef TabbyCheckoutCompletion = void Function(WebViewResult resultCode);
 
-final options = InAppWebViewGroupOptions(
-  crossPlatform: InAppWebViewOptions(
-    incognito: true,
-  ),
-  ios: IOSInAppWebViewOptions(
-    applePayAPIEnabled: true,
-    useOnNavigationResponse: true,
-  ),
+final settings = InAppWebViewSettings(
+  applePayAPIEnabled: true,
+  useOnNavigationResponse: true,
 );
 
 class TabbyWebView extends StatefulWidget {
@@ -69,17 +64,18 @@ class _TabbyWebViewState extends State<TabbyWebView> {
         Expanded(
           child: InAppWebView(
             key: webViewKey,
-            initialUrlRequest: URLRequest(url: Uri.parse(widget.webUrl)),
-            initialOptions: options,
+            initialUrlRequest:
+                URLRequest(url: WebUri.uri(Uri.parse(widget.webUrl))),
+            initialSettings: settings,
             onProgressChanged:
                 (InAppWebViewController controller, int progress) {
               setState(() {
                 _progress = progress / 100;
               });
             },
-            iosOnNavigationResponse: (controller, response) async {
+            onNavigationResponse: (controller, response) async {
               final nextUrl = response.response?.url?.toString() ?? '';
-              return iosNavigationResponseHandler(
+              return navigationResponseHandler(
                 onResult: widget.onResult,
                 nextUrl: nextUrl,
               );

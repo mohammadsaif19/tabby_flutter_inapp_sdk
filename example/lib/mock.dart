@@ -7,7 +7,6 @@ final mockPayload = Payment(
     email: 'card.success@tabby.ai',
     phone: '+971500000001',
     name: 'Yazan Khalid',
-    dob: '2019-08-24',
   ),
   buyerHistory: BuyerHistory(
     loyaltyLevel: 0,

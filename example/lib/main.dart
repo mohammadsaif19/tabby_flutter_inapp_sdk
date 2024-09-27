@@ -10,9 +10,6 @@ Future<void> main() async {
   TabbySDK().setup(
     /// Public Key, given by Tabby integrations team
     withApiKey: 'YOUR_API_KEY',
-
-    /// Environment (optional, default is Environment.production)
-    // environment: Environment.production
   );
   runApp(const MyApp());
 }

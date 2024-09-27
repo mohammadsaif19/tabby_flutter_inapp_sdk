@@ -61,16 +61,13 @@ class _TabbyPresentationSnippetNonStantardState
       ),
     );
     _browser.open(
-      url: Uri.parse(
+      url: WebUri.uri(Uri.parse(
         '${snippetWebUrls[widget.lang]}'
         '?currency=${widget.currency.displayName}$sdkQuery&installmentsCount=0',
-      ),
-      options: ChromeSafariBrowserClassOptions(
-        android: AndroidChromeCustomTabsOptions(
-            shareState: CustomTabsShareState.SHARE_STATE_OFF),
-        ios: IOSSafariOptions(
-          presentationStyle: IOSUIModalPresentationStyle.POPOVER,
-        ),
+      )),
+      settings: ChromeSafariBrowserSettings(
+        shareState: CustomTabsShareState.SHARE_STATE_OFF,
+        presentationStyle: ModalPresentationStyle.POPOVER,
       ),
     );
   }

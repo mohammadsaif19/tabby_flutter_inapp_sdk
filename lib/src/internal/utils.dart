@@ -8,23 +8,23 @@ void printError(Object error, StackTrace stackTrace) {
   debugPrint('StackTrace: $stackTrace');
 }
 
-IOSNavigationResponseAction iosNavigationResponseHandler({
+NavigationResponseAction navigationResponseHandler({
   required TabbyCheckoutCompletion onResult,
   required String nextUrl,
 }) {
   if (nextUrl.contains(defaultMerchantUrls.cancel)) {
     onResult(WebViewResult.close);
-    return IOSNavigationResponseAction.CANCEL;
+    return NavigationResponseAction.CANCEL;
   }
   if (nextUrl.contains(defaultMerchantUrls.failure)) {
     onResult(WebViewResult.rejected);
-    return IOSNavigationResponseAction.CANCEL;
+    return NavigationResponseAction.CANCEL;
   }
   if (nextUrl.contains(defaultMerchantUrls.success)) {
     onResult(WebViewResult.authorized);
-    return IOSNavigationResponseAction.CANCEL;
+    return NavigationResponseAction.CANCEL;
   }
-  return IOSNavigationResponseAction.ALLOW;
+  return NavigationResponseAction.ALLOW;
 }
 
 void javaScriptHandler(
