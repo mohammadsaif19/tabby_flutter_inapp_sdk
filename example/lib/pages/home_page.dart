@@ -97,10 +97,22 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TabbyPresentationSnippet(
-                price: '100.00',
-                currency: Currency.sar,
-                lang: Lang.en,
+              child: Column(
+                children: [
+                  TabbyPresentationSnippet(
+                    price: '100.00',
+                    currency: Currency.sar,
+                    lang: Lang.en,
+                  ),
+                  SizedBox(height: 24),
+                  TabbyProductPageSnippet(
+                    price: '100.00',
+                    currency: Currency.sar,
+                    lang: Lang.en,
+                    merchantCode: 'ae',
+                    apiKey: '123',
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 24),
