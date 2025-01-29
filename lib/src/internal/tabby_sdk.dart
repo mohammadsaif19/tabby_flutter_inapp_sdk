@@ -33,6 +33,9 @@ class TabbySDK implements TabbyWithRemoteDataSource {
 
   static final TabbySDK _singleton = TabbySDK._();
 
+  static const String rejectionTextEn = tabbyRejectionTextEn;
+  static const String rejectionTextAr = tabbyRejectionTextAr;
+
   final _anonymousId = uuid.v4();
 
   late final String _apiKey;

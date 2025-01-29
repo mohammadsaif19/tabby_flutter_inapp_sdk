@@ -70,9 +70,11 @@ class _HomePageState extends State<HomePage> {
       return;
     }
     if (session!.status == SessionStatus.rejected) {
+      final rejectionText =
+          lang == Lang.ar ? TabbySDK.rejectionTextAr : TabbySDK.rejectionTextEn;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Session rejected'),
+        SnackBar(
+          content: Text(rejectionText),
         ),
       );
       return;
@@ -104,9 +106,11 @@ class _HomePageState extends State<HomePage> {
       return;
     }
     if (session!.status == SessionStatus.rejected) {
+      final rejectionText =
+          lang == Lang.ar ? TabbySDK.rejectionTextAr : TabbySDK.rejectionTextEn;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Session rejected'),
+        SnackBar(
+          content: Text(rejectionText),
         ),
       );
       return;
