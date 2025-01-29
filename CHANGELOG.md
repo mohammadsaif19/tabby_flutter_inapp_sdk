@@ -1,3 +1,8 @@
+## 1.7.0
+
+- Added `SessionStatus`
+- ❗️Important: `TabbySession.status` could be `SessionStatus.rejected` or `SessionStatus.created`. Some customers may be rejected right after the session creation. It's up to you to handle this case before opening `TabbyWebView`. Please refer to the example `example/lib/pages/home_page.dart` where the example fns `void openInAppBrowser() {...}` and `void openCheckOutPage() {...}` are given.
+
 ## 1.6.2
 
 - `TabbyCheckoutSnippet` reworked to use png images
