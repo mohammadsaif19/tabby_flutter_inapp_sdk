@@ -61,6 +61,30 @@ class _HomePageState extends State<HomePage> {
   }
 
   void openCheckOutPage() {
+    if (session == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Session not available'),
+        ),
+      );
+      return;
+    }
+    if (session!.status == SessionStatus.rejected) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Session rejected'),
+        ),
+      );
+      return;
+    }
+    if (session!.availableProducts.installments == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Session has no products'),
+        ),
+      );
+      return;
+    }
     Navigator.pushNamed(
       context,
       '/checkout',
@@ -71,6 +95,30 @@ class _HomePageState extends State<HomePage> {
   }
 
   void openInAppBrowser() {
+    if (session == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Session not available'),
+        ),
+      );
+      return;
+    }
+    if (session!.status == SessionStatus.rejected) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Session rejected'),
+        ),
+      );
+      return;
+    }
+    if (session!.availableProducts.installments == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Session has no products'),
+        ),
+      );
+      return;
+    }
     TabbyWebView.showWebView(
       context: context,
       webUrl: session!.availableProducts.installments!.webUrl,
