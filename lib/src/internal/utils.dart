@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:tabby_flutter_inapp_sdk/src/internal/fixtures.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 
 void printError(Object error, StackTrace stackTrace) {
@@ -8,39 +6,21 @@ void printError(Object error, StackTrace stackTrace) {
   debugPrint('StackTrace: $stackTrace');
 }
 
-NavigationResponseAction navigationResponseHandler({
-  required TabbyCheckoutCompletion onResult,
-  required String nextUrl,
-}) {
-  if (nextUrl.contains(defaultMerchantUrls.cancel)) {
-    onResult(WebViewResult.close);
-    return NavigationResponseAction.CANCEL;
-  }
-  if (nextUrl.contains(defaultMerchantUrls.failure)) {
-    onResult(WebViewResult.rejected);
-    return NavigationResponseAction.CANCEL;
-  }
-  if (nextUrl.contains(defaultMerchantUrls.success)) {
-    onResult(WebViewResult.authorized);
-    return NavigationResponseAction.CANCEL;
-  }
-  return NavigationResponseAction.ALLOW;
-}
-
 void javaScriptHandler(
-  List<dynamic> message,
+  String message,
   TabbyCheckoutCompletion onResult,
 ) {
-  try {
-    final List<dynamic> events = message.first;
-    final msg = events.first as String;
-    final resultCode = WebViewResult.values.firstWhere(
-      (value) => value.name == msg.toLowerCase(),
-    );
-    onResult(resultCode);
-  } catch (e, s) {
-    printError(e, s);
+  final results = WebViewResult.values
+      .where(
+        (value) => value.name == message.toLowerCase(),
+      )
+      .toList();
+  if (results.isEmpty) {
+    return;
   }
+
+  final resultCode = results.first;
+  onResult(resultCode);
 }
 
 List<String> getLocalStrings({

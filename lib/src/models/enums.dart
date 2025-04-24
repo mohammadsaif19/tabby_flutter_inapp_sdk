@@ -1,5 +1,16 @@
 enum Lang { en, ar }
 
+extension LangDisplayNam on Lang {
+  String get displayName {
+    switch (this) {
+      case Lang.en:
+        return 'en';
+      case Lang.ar:
+        return 'ar';
+    }
+  }
+}
+
 enum Currency { aed, sar, kwd, bhd, qar }
 
 extension CurrencyExt on Currency {
@@ -103,14 +114,14 @@ extension EnvironmentExt on Environment {
   String get host {
     switch (this) {
       case Environment.production:
-        return 'https://api.tabby.ai';
+        return 'https://api.tabby.dev';
     }
   }
 
   String get analyticsHost {
     switch (this) {
       case Environment.production:
-        return 'https://dp-event-collector.tabby.ai/v1/t';
+        return 'https://dp-event-collector.tabby.dev/v1/t';
     }
   }
 }

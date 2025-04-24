@@ -177,6 +177,7 @@ class CheckoutSession {
     required this.status,
     required this.payment,
     required this.configuration,
+    required this.rejectionReason,
   });
 
   factory CheckoutSession.fromJson(Map<String, dynamic> json) {
@@ -188,6 +189,7 @@ class CheckoutSession {
       ),
       payment: Identifiable.fromJson(json['payment']),
       configuration: SessionConfiguration.fromJson(json['configuration']),
+      rejectionReason: json['products']?['installments']?['rejection_reason'],
     );
   }
 
@@ -195,6 +197,7 @@ class CheckoutSession {
   final SessionStatus status;
   final Identifiable payment;
   final SessionConfiguration configuration;
+  final String? rejectionReason;
 }
 
 // https://docs.tabby.ai/#operation/postCheckoutSession
@@ -395,12 +398,14 @@ class TabbySession {
     required this.sessionId,
     required this.paymentId,
     required this.availableProducts,
+    required this.rejectionReason,
   });
 
   final SessionStatus status;
   final String sessionId;
   final String paymentId;
   final TabbySessionAvailableProducts availableProducts;
+  final String? rejectionReason;
 
   @override
   bool operator ==(Object other) =>

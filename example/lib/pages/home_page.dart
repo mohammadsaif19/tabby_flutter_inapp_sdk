@@ -21,45 +21,56 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TabbyPresentationSnippet(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text('lib/src/internal/tabby_presentation_snippet.dart'),
+              const TabbyPresentationSnippet(
                 price: '100.00',
                 currency: Currency.sar,
                 lang: Lang.en,
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: TabbyCheckoutSnippet(
+              const SizedBox(height: 8),
+              const Text('lib/src/internal/tabby_product_page_snippet.dart'),
+              const SizedBox(height: 8),
+              TabbyProductPageSnippet(
+                price: 100.00,
+                currency: Currency.sar,
+                lang: Lang.en,
+                apiKey: TabbySDK().publicKey,
+                merchantCode: 'ae',
+              ),
+              const SizedBox(height: 8),
+              const Text('lib/src/internal/tabby_checkout_snippet.dart'),
+              const SizedBox(height: 8),
+              const TabbyCheckoutSnippet(
                 price: '1100',
                 currency: Currency.aed,
                 lang: Lang.en,
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    shadowColor: Colors.transparent,
                   ),
-                  elevation: 0,
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  shadowColor: Colors.transparent,
+                  onPressed: openNewSessionPage,
+                  child: const Text('Test Checkout Session'),
                 ),
-                onPressed: openNewSessionPage,
-                child: const Text('Test Checkout Session'),
               ),
-            ),
-            const SizedBox(height: 24),
-          ],
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
     );

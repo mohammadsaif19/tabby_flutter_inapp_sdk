@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 
@@ -8,9 +9,11 @@ class ApiKeyPage extends StatefulWidget {
   State<ApiKeyPage> createState() => _ApiKeyPageState();
 }
 
+const _demoApiKey = String.fromEnvironment('demoapp.apiKey', defaultValue: '');
+
 class _ApiKeyPageState extends State<ApiKeyPage> {
   late TextEditingController _apiKeyController;
-  String _apiKey = '';
+  String _apiKey = kDebugMode ? _demoApiKey : '';
 
   void openNextPage() {
     TabbySDK().setup(withApiKey: _apiKey);

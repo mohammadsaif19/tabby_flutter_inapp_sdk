@@ -42,6 +42,8 @@ class TabbySDK implements TabbyWithRemoteDataSource {
   late final String _host;
   late final String _analyticsHost;
 
+  String get publicKey => _apiKey;
+
   @override
   void setup({
     required String withApiKey,
@@ -99,6 +101,7 @@ class TabbySDK implements TabbyWithRemoteDataSource {
         status: checkoutSession.status,
         paymentId: checkoutSession.payment.id,
         availableProducts: availableProducts,
+        rejectionReason: checkoutSession.rejectionReason,
       );
       return tabbyCheckoutSession;
     } else {

@@ -18,7 +18,7 @@ class _NewSessionState extends State<NewSession> {
 
   String _amount = '340';
   late TextEditingController _amountController;
-  String _email = 'id.success@tabby.ai';
+  String _email = 'card.success@tabby.ai';
   late TextEditingController _emailController;
   String _phone = '+971500000001';
   late TextEditingController _phoneController;
@@ -94,8 +94,10 @@ class _NewSessionState extends State<NewSession> {
       return;
     }
     if (session!.status == SessionStatus.rejected) {
-      final rejectionText =
-          lang == Lang.ar ? TabbySDK.rejectionTextAr : TabbySDK.rejectionTextEn;
+      final rejectionText = session!.rejectionReason ??
+          (lang == Lang.ar
+              ? TabbySDK.rejectionTextAr
+              : TabbySDK.rejectionTextEn);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(rejectionText),
