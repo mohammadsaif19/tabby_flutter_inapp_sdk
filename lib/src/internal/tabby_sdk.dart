@@ -35,6 +35,7 @@ class TabbySDK implements TabbyWithRemoteDataSource {
 
   static const String rejectionTextEn = tabbyRejectionTextEn;
   static const String rejectionTextAr = tabbyRejectionTextAr;
+  static const String jsBridgeName = 'tabbyMobileSDK';
 
   final _anonymousId = uuid.v4();
 

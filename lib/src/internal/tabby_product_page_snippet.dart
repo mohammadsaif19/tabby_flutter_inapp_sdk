@@ -51,9 +51,14 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
           print('JS: Console.log ${message.message}');
         }
       })
-      ..addJavaScriptChannel('tabbyMobileSDK', onMessageReceived: (message) {
-        print('JS: Got message from tabbyMobileSDK: ${message.message}');
-      })
+      ..addJavaScriptChannel(
+        TabbySDK.jsBridgeName,
+        onMessageReceived: (message) {
+          print(
+            'JS: Got message from ${TabbySDK.jsBridgeName}: ${message.message}',
+          );
+        },
+      )
       ..loadRequest(Uri.parse(address));
     super.initState();
   }

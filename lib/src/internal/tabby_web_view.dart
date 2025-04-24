@@ -94,12 +94,15 @@ class _TabbyWebViewState extends State<TabbyWebView> {
           print('console.log: ${message.message}');
         }
       })
-      ..addJavaScriptChannel('tabbyMobileSDK', onMessageReceived: (message) {
-        if (kDebugMode) {
-          print('Got message from JS: ${message.message}');
-        }
-        javaScriptHandler(message.message, widget.onResult);
-      })
+      ..addJavaScriptChannel(
+        TabbySDK.jsBridgeName,
+        onMessageReceived: (message) {
+          if (kDebugMode) {
+            print('Got message from JS: ${message.message}');
+          }
+          javaScriptHandler(message.message, widget.onResult);
+        },
+      )
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
