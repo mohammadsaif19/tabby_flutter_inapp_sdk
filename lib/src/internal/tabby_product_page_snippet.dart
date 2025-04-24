@@ -23,8 +23,11 @@ class TabbyProductPageSnippet extends StatefulWidget {
 }
 
 class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
+  double height = 98;
   final WebViewController webViewController = createBaseWebViewController(
-    (message) {},
+    (message) {
+      // TODO: listen to events `onChangeDimensions` and `onLearnMoreClicked`
+    },
   );
 
   @override
@@ -43,7 +46,8 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
         '&currency=${widget.currency.displayName}'
         '&publicKey=${widget.apiKey}'
         '&merchantCode=${widget.merchantCode}'
-        '&lang=${widget.lang.displayName}';
+        '&lang=${widget.lang.displayName}'
+        '&platform=flutter';
 
     webViewController.loadRequest(Uri.parse(address));
     super.initState();
@@ -55,7 +59,7 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: width,
-        maxHeight: 98,
+        maxHeight: height,
       ),
       child: WebViewWidget(
         controller: webViewController,
