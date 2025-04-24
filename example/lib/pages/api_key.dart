@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 
 class ApiKeyPage extends StatefulWidget {
-  const ApiKeyPage({Key? key}) : super(key: key);
+  const ApiKeyPage({super.key});
 
   @override
   State<ApiKeyPage> createState() => _ApiKeyPageState();
