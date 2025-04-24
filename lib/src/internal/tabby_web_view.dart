@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
@@ -60,59 +57,25 @@ extension TabbyPermissionResourceType on WebViewPermissionResourceType {
 class _TabbyWebViewState extends State<TabbyWebView> {
   final GlobalKey webViewKey = GlobalKey();
   double _progress = 0;
-  late WebViewController _webViewController;
+
+  late WebViewController webViewController;
 
   @override
   void initState() {
     super.initState();
-    _webViewController = WebViewController(
-      onPermissionRequest: (request) async {
-        final resources = request.platform.types.toList();
-        if (resources.isEmpty) {
-          return;
-        }
-
-        final permissions = Platform.isAndroid
-            ? resources
-                .map((r) {
-                  final permission =
-                      TabbyPermissionResourceType.toAndroidPermission(r);
-                  return permission;
-                })
-                .whereType<Permission>()
-                .toList()
-            : [Permission.camera, Permission.microphone];
-        final statuses = await permissions.request();
-        final isGranted = statuses.values.every((s) => s.isGranted);
-        final future = isGranted ? request.grant : request.deny;
-        await future();
-      },
-    )
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setOnConsoleMessage((message) {
-        if (kDebugMode) {
-          print('console.log: ${message.message}');
-        }
-      })
-      ..addJavaScriptChannel(
-        TabbySDK.jsBridgeName,
-        onMessageReceived: (message) {
-          if (kDebugMode) {
-            print('Got message from JS: ${message.message}');
-          }
-          javaScriptHandler(message.message, widget.onResult);
+    webViewController = createBaseWebViewController((message) {
+      javaScriptHandler(message.message, widget.onResult);
+    });
+    webViewController.setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+          setState(() {
+            _progress = progress / 100;
+          });
         },
-      )
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            setState(() {
-              _progress = progress / 100;
-            });
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse(widget.webUrl));
+      ),
+    );
+    webViewController.loadRequest(Uri.parse(widget.webUrl));
   }
 
   @override
@@ -129,7 +92,7 @@ class _TabbyWebViewState extends State<TabbyWebView> {
         Expanded(
           key: webViewKey,
           child: WebViewWidget(
-            controller: _webViewController,
+            controller: webViewController,
           ),
         ),
       ],

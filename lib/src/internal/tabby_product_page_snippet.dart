@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -24,7 +23,9 @@ class TabbyProductPageSnippet extends StatefulWidget {
 }
 
 class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
-  late WebViewController _webViewController;
+  final WebViewController webViewController = createBaseWebViewController(
+    (message) {},
+  );
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
         installmentsCount: 4,
       ),
     );
+
     final address = 'https://widgets.tabby.dev/tabby-promo.html'
         '?price=${widget.price}'
         '&currency=${widget.currency.displayName}'
@@ -43,36 +45,20 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
         '&merchantCode=${widget.merchantCode}'
         '&lang=${widget.lang.displayName}';
 
-    _webViewController = WebViewController()
-      ..setBackgroundColor(Colors.transparent)
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setOnConsoleMessage((message) {
-        if (kDebugMode) {
-          print('JS: Console.log ${message.message}');
-        }
-      })
-      ..addJavaScriptChannel(
-        TabbySDK.jsBridgeName,
-        onMessageReceived: (message) {
-          print(
-            'JS: Got message from ${TabbySDK.jsBridgeName}: ${message.message}',
-          );
-        },
-      )
-      ..loadRequest(Uri.parse(address));
+    webViewController.loadRequest(Uri.parse(address));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Container(
+    return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: width,
         maxHeight: 98,
       ),
       child: WebViewWidget(
-        controller: _webViewController,
+        controller: webViewController,
       ),
     );
   }
