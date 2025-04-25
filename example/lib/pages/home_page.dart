@@ -44,12 +44,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 8),
               const Text('lib/src/internal/tabby_checkout_snippet.dart'),
-              const SizedBox(height: 8),
-              const TabbyCheckoutSnippet(
-                price: '1100',
-                currency: Currency.aed,
-                lang: Lang.en,
-              ),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
