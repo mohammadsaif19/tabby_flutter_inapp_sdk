@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:tabby_flutter_inapp_sdk/src/internal/browser.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 
 import 'fixtures.dart';
@@ -30,36 +29,9 @@ class TabbyPresentationSnippet extends StatefulWidget {
 }
 
 class _TabbyPresentationSnippetState extends State<TabbyPresentationSnippet> {
-  late final TabbyChromeSafariBrowser _browser;
-
-  @override
-  void initState() {
-    TabbySDK().logEvent(
-      AnalyticsEvent.snipperCardRendered,
-      EventProperties(
-        currency: widget.currency,
-        lang: widget.lang,
-        installmentsCount: 4,
-      ),
-    );
-    _browser = TabbyChromeSafariBrowser(
-      currency: widget.currency,
-      lang: widget.lang,
-      installmentsCount: 4,
-    );
-    super.initState();
-  }
-
   void openWebBrowser() {
-    TabbySDK().logEvent(
-      AnalyticsEvent.learnMoreClicked,
-      EventProperties(
-        currency: widget.currency,
-        lang: widget.lang,
-        installmentsCount: 4,
-      ),
-    );
-    _browser.open(
+    final browser = ChromeSafariBrowser();
+    browser.open(
       url: WebUri.uri(Uri.parse(
         '${snippetWebUrls[widget.lang]}'
         '?price=${widget.price}&currency=${widget.currency.displayName}$sdkQuery',

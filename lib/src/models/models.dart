@@ -171,6 +171,65 @@ class SessionConfiguration {
   final AvailableProducts availableProducts;
 }
 
+class DimentionsEventPayload {
+  const DimentionsEventPayload({
+    required this.width,
+    required this.height,
+  });
+
+  factory DimentionsEventPayload.fromJson(Map<String, dynamic> json) {
+    return DimentionsEventPayload(
+      width: json['width'],
+      height: json['height'],
+    );
+  }
+
+  final double width;
+  final double height;
+}
+
+class DimentionsChangeEvent {
+  const DimentionsChangeEvent({
+    required this.type,
+    required this.data,
+  });
+
+  factory DimentionsChangeEvent.fromJson(Map<String, dynamic> json) {
+    return DimentionsChangeEvent(
+      type: JSEventTypeMapper.fromDto(json['type']) ??
+          JSEventType.onChangeDimensions,
+      data: DimentionsEventPayload.fromJson(json['data']),
+    );
+  }
+
+  final JSEventType type;
+  final DimentionsEventPayload data;
+}
+
+class LearnMoreClickedEvent {
+  const LearnMoreClickedEvent({
+    required this.type,
+    required this.data,
+  });
+
+  factory LearnMoreClickedEvent.fromJson(Map<String, dynamic> json) {
+    return LearnMoreClickedEvent(
+        type: JSEventTypeMapper.fromDto(json['type']) ??
+            JSEventType.onChangeDimensions,
+        data: json['data']);
+  }
+
+  final JSEventType type;
+  final String data;
+}
+
+// ignore: avoid_classes_with_only_static_members
+class JSEventTypeMapper {
+  static JSEventType? fromDto(String dto) {
+    return JSEventType.values.firstWhere((t) => t.dtoName == dto);
+  }
+}
+
 class CheckoutSession {
   CheckoutSession({
     required this.id,
@@ -457,24 +516,4 @@ class TransactionStatusResponse {
   final String id;
   final bool isPaid;
   final String? rejectionReason;
-}
-
-class EventProperties {
-  EventProperties({
-    required this.currency,
-    required this.lang,
-    this.installmentsCount,
-  });
-
-  final Currency currency;
-  final Lang lang;
-  final int? installmentsCount;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'currency': currency.displayName,
-      'lang': lang.name,
-      'installments_count': installmentsCount,
-    };
-  }
 }

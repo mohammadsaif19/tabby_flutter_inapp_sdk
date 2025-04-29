@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -24,31 +26,68 @@ class TabbyProductPageSnippet extends StatefulWidget {
 
 class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
   double height = 98;
-  final WebViewController webViewController = createBaseWebViewController(
-    (message) {
-      // TODO: listen to events `onChangeDimensions` and `onLearnMoreClicked`
-    },
-  );
+  late final WebViewController webViewController;
+
+  void messageHandler(JavaScriptMessage message) {
+    final json = jsonDecode(message.message) as Map<String, dynamic>;
+    final type = JSEventTypeMapper.fromDto(json['type']);
+    if (type == null) {
+      return;
+    }
+    if (type == JSEventType.onChangeDimensions) {
+      final event = DimentionsChangeEvent.fromJson(json);
+      final dimentions = event.data;
+      print(dimentions);
+      setState(() {});
+    }
+    if (type == JSEventType.onLearnMoreClicked) {
+      final event = LearnMoreClickedEvent.fromJson(json);
+      final params = event.data;
+      // final browser = ChromeSafariBrowser();
+      // browser.open(
+      //   url: WebUri.uri(Uri.parse(params)),
+      //   settings: ChromeSafariBrowserSettings(
+      //     shareState: CustomTabsShareState.SHARE_STATE_OFF,
+      //     presentationStyle: ModalPresentationStyle.POPOVER,
+      //   ),
+      // );
+      print(params);
+      final controller = WebViewController();
+      controller.setJavaScriptMode(JavaScriptMode.unrestricted);
+      controller.addJavaScriptChannel(
+        'tabbyMobileSDK',
+        onMessageReceived: (JavaScriptMessage message) {
+          debugPrint("Message from JS: ${message.message}");
+        },
+      );
+      controller.loadRequest(Uri.parse('https://flutter.dev'));
+      // controller.runJavaScript
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        enableDrag: false,
+        builder: (context) {
+          return FractionallySizedBox(
+            heightFactor: 0.94,
+            child: WebViewWidget(
+              controller: controller,
+            ),
+          );
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
-    TabbySDK().logEvent(
-      AnalyticsEvent.snipperCardRendered,
-      EventProperties(
-        currency: widget.currency,
-        lang: widget.lang,
-        installmentsCount: 4,
-      ),
-    );
-
-    final address = 'https://widgets.tabby.dev/tabby-promo.html'
+    final address = 'https://widgets.tabby.ai/tabby-promo.html'
         '?price=${widget.price}'
         '&currency=${widget.currency.displayName}'
         '&publicKey=${widget.apiKey}'
         '&merchantCode=${widget.merchantCode}'
         '&lang=${widget.lang.displayName}'
         '&platform=flutter';
-
+    webViewController = createBaseWebViewController(messageHandler);
     webViewController.loadRequest(Uri.parse(address));
     super.initState();
   }

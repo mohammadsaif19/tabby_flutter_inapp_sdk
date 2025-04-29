@@ -114,14 +114,7 @@ extension EnvironmentExt on Environment {
   String get host {
     switch (this) {
       case Environment.production:
-        return 'https://api.tabby.dev';
-    }
-  }
-
-  String get analyticsHost {
-    switch (this) {
-      case Environment.production:
-        return 'https://dp-event-collector.tabby.dev/v1/t';
+        return 'https://api.tabby.ai';
     }
   }
 }
@@ -138,24 +131,18 @@ enum SessionStatus {
   rejected,
 }
 
-enum AnalyticsEvent {
-  snipperCardRendered, // = 'Snippet Cart Rendered',
-  learnMoreClicked, // = 'Learn More Clicked',
-  learnMorePopUpOpened, // = 'Learn More Pop Up Opened',
-  learnMorePopUpClosed, // = 'Learn More Pop Up Closed',
+enum JSEventType {
+  onChangeDimensions,
+  onLearnMoreClicked,
 }
 
-extension AnalyticsEventExt on AnalyticsEvent {
-  String get name {
+extension JSEventTypeExt on JSEventType {
+  String get dtoName {
     switch (this) {
-      case AnalyticsEvent.snipperCardRendered:
-        return 'Snippet Cart Rendered';
-      case AnalyticsEvent.learnMoreClicked:
-        return 'Learn More Clicked';
-      case AnalyticsEvent.learnMorePopUpOpened:
-        return 'Learn More Pop Up Opened';
-      case AnalyticsEvent.learnMorePopUpClosed:
-        return 'Learn More Pop Up Closed';
+      case JSEventType.onChangeDimensions:
+        return 'onChangeDimensions';
+      case JSEventType.onLearnMoreClicked:
+        return 'onLearnMoreClicked';
     }
   }
 }
