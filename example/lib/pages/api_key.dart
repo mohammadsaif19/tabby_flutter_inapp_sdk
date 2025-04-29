@@ -47,6 +47,8 @@ class _ApiKeyPageState extends State<ApiKeyPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Spacer(),
+            Text('Base url is ${Environment.production.host}'),
+            SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.only(bottom: 24.0, left: 12, right: 12),
               child: TextField(
