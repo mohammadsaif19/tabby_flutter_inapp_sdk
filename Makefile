@@ -8,6 +8,14 @@ lint:
 env:
 	sh scripts/env.sh
 
+pre_build:
+	fvm use
+	fvm flutter clean
+	cd example
+	fvm flutter clean
+	cd ..
+	make pg
+
 build_android:
 	sh scripts/build_android.sh
 
@@ -18,3 +26,6 @@ build_ios:
 build_both:
 	make build_android
 	make build_ios
+
+publish:
+	fvm dart pub publish

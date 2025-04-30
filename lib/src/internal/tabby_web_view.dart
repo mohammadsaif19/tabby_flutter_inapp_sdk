@@ -57,7 +57,6 @@ extension TabbyPermissionResourceType on WebViewPermissionResourceType {
 class _TabbyWebViewState extends State<TabbyWebView> {
   final GlobalKey webViewKey = GlobalKey();
   double _progress = 0;
-
   late WebViewController webViewController;
 
   @override
