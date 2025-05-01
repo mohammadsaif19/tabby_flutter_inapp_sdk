@@ -250,7 +250,7 @@ class InitializationData {
 
   String toPayload() {
     return jsonEncode({
-      'type': type,
+      type: type,
       data: data,
     });
   }
