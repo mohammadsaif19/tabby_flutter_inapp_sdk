@@ -1,3 +1,10 @@
+# 1.10.0
+- Getting rid of deprecated `TabbyCheckoutSnippet`
+- Getting rid of deprecated `TabbyPresentationSnippetNonStantard`
+- ❗️ Breaking change: Getting rid of deprecated `TabbyPresentationSnippet`. Please use `TabbyProductPageSnippet` instead - it's an easy migration
+- 🆕 Adding new web-view based dynamic `TabbyProductPageSnippet`
+- Lowering code dependency on `flutter_inappwebview` package
+
 # 1.9.0
 - Updating example app to the latest Flutter version
 - Migrating `TabbyWebView` from using `flutter_inappwebview` to more stable `webview_flutter`
