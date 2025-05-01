@@ -36,8 +36,10 @@ class TabbySDK implements TabbyWithRemoteDataSource {
 
   late final String _apiKey;
   late final String _host;
+  late final String _widgetsHost;
 
   String get publicKey => _apiKey;
+  String get widgetsBaseUrl => _widgetsHost;
 
   @override
   void setup({
@@ -49,6 +51,7 @@ class TabbySDK implements TabbyWithRemoteDataSource {
     }
     _apiKey = withApiKey;
     _host = environment.host;
+    _widgetsHost = environment.widgetsHost;
   }
 
   void checkSetup() {

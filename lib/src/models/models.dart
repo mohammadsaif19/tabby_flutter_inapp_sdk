@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 
 import './enums.dart';
@@ -178,14 +180,21 @@ class DimentionsEventPayload {
   });
 
   factory DimentionsEventPayload.fromJson(Map<String, dynamic> json) {
+    final w = json['width'];
+    final h = json['height'];
     return DimentionsEventPayload(
-      width: json['width'],
-      height: json['height'],
+      width: w is int ? w.toDouble() : w,
+      height: h is int ? h.toDouble() : h,
     );
   }
 
   final double width;
   final double height;
+
+  @override
+  String toString() {
+    return 'DimentionsEventPayload(width: $width, height: $height)';
+  }
 }
 
 class DimentionsChangeEvent {
@@ -209,17 +218,21 @@ class DimentionsChangeEvent {
 class LearnMoreClickedEvent {
   const LearnMoreClickedEvent({
     required this.type,
+    required this.url,
     required this.data,
   });
 
   factory LearnMoreClickedEvent.fromJson(Map<String, dynamic> json) {
     return LearnMoreClickedEvent(
-        type: JSEventTypeMapper.fromDto(json['type']) ??
-            JSEventType.onChangeDimensions,
-        data: json['data']);
+      type: JSEventTypeMapper.fromDto(json['type']) ??
+          JSEventType.onChangeDimensions,
+      url: json['url'],
+      data: json['data'],
+    );
   }
 
   final JSEventType type;
+  final String url;
   final String data;
 }
 
@@ -227,6 +240,19 @@ class LearnMoreClickedEvent {
 class JSEventTypeMapper {
   static JSEventType? fromDto(String dto) {
     return JSEventType.values.firstWhere((t) => t.dtoName == dto);
+  }
+}
+
+class InitializationData {
+  InitializationData({required this.data});
+  final type = 'initializationData';
+  final String data;
+
+  String toPayload() {
+    return jsonEncode({
+      'type': type,
+      data: data,
+    });
   }
 }
 

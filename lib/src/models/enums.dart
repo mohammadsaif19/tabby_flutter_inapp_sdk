@@ -106,15 +106,24 @@ enum OrderHistoryItemPaymentMethod {
   cod,
 }
 
-enum Environment {
-  production,
-}
+enum Environment { production, staging }
 
 extension EnvironmentExt on Environment {
   String get host {
     switch (this) {
       case Environment.production:
         return 'https://api.tabby.ai';
+      case Environment.staging:
+        return 'https://api.tabby.dev';
+    }
+  }
+
+  String get widgetsHost {
+    switch (this) {
+      case Environment.production:
+        return 'https://widgets.tabby.ai/tabby-promo.html';
+      case Environment.staging:
+        return 'https://widgets.tabby.dev/tabby-promo.html';
     }
   }
 }
