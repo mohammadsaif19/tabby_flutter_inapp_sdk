@@ -43,7 +43,6 @@ class _HomePageState extends State<HomePage> {
                 merchantCode: 'ae',
               ),
               const SizedBox(height: 8),
-              const Text('lib/src/internal/tabby_checkout_snippet.dart'),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

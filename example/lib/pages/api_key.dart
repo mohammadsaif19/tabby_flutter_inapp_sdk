@@ -7,6 +7,11 @@ const _preConfiguredApiKey = String.fromEnvironment(
   defaultValue: '',
 );
 
+const _preConfiguredEnv = String.fromEnvironment(
+  'demoapp.defaultEnv',
+  defaultValue: 'production',
+);
+
 class ApiKeyPage extends StatefulWidget {
   const ApiKeyPage({super.key});
 
@@ -16,7 +21,10 @@ class ApiKeyPage extends StatefulWidget {
 
 class _ApiKeyPageState extends State<ApiKeyPage> {
   late TextEditingController _apiKeyController;
-  Environment _env = Environment.production;
+  Environment _env =
+      _preConfiguredEnv == Environment.staging.name
+          ? Environment.staging
+          : Environment.production;
   String _apiKey = kDebugMode ? _preConfiguredApiKey : '';
 
   void openNextPage() {
@@ -74,7 +82,7 @@ class _ApiKeyPageState extends State<ApiKeyPage> {
                       Environment.values.map((Environment e) {
                         return DropdownMenuItem<Environment>(
                           value: e,
-                          child: Text("${e.name.toUpperCase()} (${_env.host})"),
+                          child: Text("${e.name.toUpperCase()} (${e.host})"),
                         );
                       }).toList(),
                   onChanged: _updateEnvironment,
