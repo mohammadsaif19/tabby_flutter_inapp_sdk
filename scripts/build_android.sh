@@ -25,7 +25,19 @@ version_name="$TABBY_APP_VERSION($TABBY_APP_BUILD_NUMBER)"
 
 echo "👉 Currently in dir: $(pwd)"
 
-cp example/build/app/outputs/flutter-apk/app-release.apk example/build/app/outputs/flutter-apk/tabby-flutter-sdk-demo-app-$version_name.apk
+ls example/build/app/outputs/flutter-apk/*.apk
 
-echo "✓ Built example/build/app/outputs/flutter-apk/tabby-flutter-sdk-demo-app-$version_name.apk"
-ls example/build/app/outputs/flutter-apk/tabby-flutter-sdk-demo-app-*.apk
+export ARTIFACT_PATH="$(pwd)/example/build/app/outputs/flutter-apk/app-release.apk"
+echo "👉 ARTIFACT_PATH path: $ARTIFACT_PATH"
+
+eval "$(
+  cat .secure_files/.env | awk '!/^\s*#/' | awk '!/^\s*$/' | while IFS='' read -r line; do
+    key=$(echo "$line" | cut -d '=' -f 1)
+    value=$(echo "$line" | cut -d '=' -f 2-)
+    echo "export $key=\"$value\""
+  done
+)"
+
+cd example/android
+fastlane init
+fastlane distribute
