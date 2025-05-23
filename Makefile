@@ -18,6 +18,7 @@ pre_build:
 
 build_android:
 	make pre_build
+	make env
 	sh scripts/build_android.sh
 
 build_ios:
