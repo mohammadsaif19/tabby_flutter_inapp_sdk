@@ -26,12 +26,6 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('lib/src/internal/tabby_presentation_snippet.dart'),
-              const TabbyPresentationSnippet(
-                price: '100.00',
-                currency: Currency.sar,
-                lang: Lang.en,
-              ),
               const SizedBox(height: 8),
               const Text('lib/src/internal/tabby_product_page_snippet.dart'),
               const SizedBox(height: 8),
