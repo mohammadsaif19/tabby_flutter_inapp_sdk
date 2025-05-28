@@ -12,6 +12,7 @@ class TabbyProductPageSnippet extends StatefulWidget {
     required this.lang,
     required this.merchantCode,
     required this.apiKey,
+    this.installmentsCount = 4,
     Key? key,
   }) : super(key: key);
   final double price;
@@ -19,6 +20,7 @@ class TabbyProductPageSnippet extends StatefulWidget {
   final Lang lang;
   final String merchantCode;
   final String apiKey;
+  final int installmentsCount;
 
   @override
   State<TabbyProductPageSnippet> createState() =>
@@ -63,10 +65,31 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
         '&currency=${widget.currency.displayName}'
         '&publicKey=${widget.apiKey}'
         '&merchantCode=${widget.merchantCode}'
-        '&lang=${widget.lang.displayName}';
+        '&lang=${widget.lang.displayName}'
+        '&installmentsCount=${widget.installmentsCount}';
     webViewController = createBaseWebViewController(messageHandler);
     webViewController.loadRequest(Uri.parse(address));
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(TabbyProductPageSnippet oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.price != widget.price ||
+        oldWidget.currency != widget.currency ||
+        oldWidget.lang != widget.lang ||
+        oldWidget.merchantCode != widget.merchantCode ||
+        oldWidget.apiKey != widget.apiKey ||
+        oldWidget.installmentsCount != widget.installmentsCount) {
+      final address = '${TabbySDK().widgetsBaseUrl}'
+          '?price=${widget.price}'
+          '&currency=${widget.currency.displayName}'
+          '&publicKey=${widget.apiKey}'
+          '&merchantCode=${widget.merchantCode}'
+          '&lang=${widget.lang.displayName}'
+          '&installmentsCount=${widget.installmentsCount}';
+      webViewController.loadRequest(Uri.parse(address));
+    }
   }
 
   @override
