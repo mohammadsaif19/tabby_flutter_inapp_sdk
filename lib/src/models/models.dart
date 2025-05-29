@@ -323,6 +323,20 @@ class CheckoutSession {
   final SessionConfiguration configuration;
 }
 
+class Attachment {
+  const Attachment({
+    required this.body,
+    required this.contentType,
+  });
+
+  final String body;
+  final String contentType;
+
+  Map<String, dynamic> toJson() {
+    return {'body': body, 'content_type': contentType};
+  }
+}
+
 // https://docs.tabby.ai/#operation/postCheckoutSession
 class Payment {
   Payment({
@@ -334,6 +348,7 @@ class Payment {
     required this.order,
     required this.orderHistory,
     this.description,
+    this.attachment,
   });
 
   final String amount;
@@ -344,6 +359,7 @@ class Payment {
   final Order order;
   final List<OrderHistoryItem> orderHistory;
   final String? description;
+  final Attachment? attachment;
 
   Map<String, dynamic> toJson() {
     return {
@@ -354,14 +370,13 @@ class Payment {
       'shipping_address': shippingAddress?.toJson(),
       'order': order.toJson(),
       'order_history': orderHistory,
-      'description': description
+      'description': description,
+      'attachment': attachment?.toJson(),
     };
   }
 }
 
 class OrderItem {
-  // 2.00
-
   OrderItem({
     required this.title,
     required this.quantity,
