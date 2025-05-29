@@ -98,7 +98,8 @@ class TabbySDK implements TabbyWithRemoteDataSource {
         status: checkoutSession.status,
         paymentId: checkoutSession.payment.id,
         availableProducts: availableProducts,
-        rejectionReason: checkoutSession.rejectionReason,
+        rejectionReason: checkoutSession
+            .configuration.products.installments?.rejectionReason,
       );
       return tabbyCheckoutSession;
     } else {

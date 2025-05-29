@@ -161,16 +161,57 @@ class AvailableProducts {
   final List<ProductWebURL>? installments;
 }
 
+class Products {
+  Products({
+    this.installments,
+  });
+
+  factory Products.fromJson(Map<String, dynamic> json) {
+    return Products(
+      installments: json['installments'] != null
+          ? InstallmentsProduct.fromJson(json['installments'])
+          : null,
+    );
+  }
+
+  final InstallmentsProduct? installments;
+}
+
+class InstallmentsProduct {
+  InstallmentsProduct({
+    required this.type,
+    required this.isAvailable,
+    required this.rejectionReason,
+  });
+
+  factory InstallmentsProduct.fromJson(Map<String, dynamic> json) {
+    return InstallmentsProduct(
+      type: json['type'],
+      isAvailable: json['is_available'],
+      rejectionReason: json['rejection_reason'],
+    );
+  }
+
+  final String type;
+  final bool isAvailable;
+  final String? rejectionReason;
+}
+
 class SessionConfiguration {
-  SessionConfiguration({required this.availableProducts});
+  SessionConfiguration({
+    required this.availableProducts,
+    required this.products,
+  });
 
   factory SessionConfiguration.fromJson(Map<String, dynamic> json) {
     return SessionConfiguration(
       availableProducts: AvailableProducts.fromJson(json['available_products']),
+      products: Products.fromJson(json['products']),
     );
   }
 
   final AvailableProducts availableProducts;
+  final Products products;
 }
 
 class DimentionsEventPayload {
@@ -262,7 +303,6 @@ class CheckoutSession {
     required this.status,
     required this.payment,
     required this.configuration,
-    required this.rejectionReason,
   });
 
   factory CheckoutSession.fromJson(Map<String, dynamic> json) {
@@ -274,7 +314,6 @@ class CheckoutSession {
       ),
       payment: Identifiable.fromJson(json['payment']),
       configuration: SessionConfiguration.fromJson(json['configuration']),
-      rejectionReason: json['products']?['installments']?['rejection_reason'],
     );
   }
 
@@ -282,7 +321,6 @@ class CheckoutSession {
   final SessionStatus status;
   final Identifiable payment;
   final SessionConfiguration configuration;
-  final String? rejectionReason;
 }
 
 // https://docs.tabby.ai/#operation/postCheckoutSession
