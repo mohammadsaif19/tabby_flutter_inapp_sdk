@@ -28,8 +28,9 @@ build_ios:
 
 build_both:
 	make pre_build
-	make build_android
-	make build_ios
+	make env
+	sh scripts/build_android.sh
+	sh scripts/build_ios.sh
 
 publish:
 	fvm dart pub publish
