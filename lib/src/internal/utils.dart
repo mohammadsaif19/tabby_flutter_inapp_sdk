@@ -12,13 +12,32 @@ void printError(Object error, StackTrace stackTrace) {
   debugPrint('StackTrace: $stackTrace');
 }
 
-void javaScriptHandler(
+void javaScriptHandlerWVF(
   String message,
   TabbyCheckoutCompletion onResult,
 ) {
   final results = WebViewResult.values
       .where(
         (value) => value.name == message.toLowerCase(),
+      )
+      .toList();
+  if (results.isEmpty) {
+    return;
+  }
+
+  final resultCode = results.first;
+  onResult(resultCode);
+}
+
+void javaScriptHandlerFIWV(
+  List<dynamic> message,
+  TabbyCheckoutCompletion onResult,
+) {
+  final List<dynamic> events = message.first;
+  final msg = events.first as String;
+  final results = WebViewResult.values
+      .where(
+        (value) => value.name == msg.toLowerCase(),
       )
       .toList();
   if (results.isEmpty) {
@@ -106,7 +125,7 @@ WebViewController createBaseWebViewController(
           ? resources
               .map((r) {
                 final permission =
-                    TabbyPermissionResourceType.toAndroidPermission(r);
+                    TabbyPermissionResourceType1.toAndroidPermission(r);
                 return permission;
               })
               .whereType<Permission>()
