@@ -34,3 +34,7 @@ build_both:
 
 publish:
 	fvm dart pub publish
+
+pods:
+	fvm flutter precache --ios
+	pod install --repo-update --project-directory=example/ios

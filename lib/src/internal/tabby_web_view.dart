@@ -29,9 +29,10 @@ class TabbyWebView extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       enableDrag: false,
+      useSafeArea: true,
+      backgroundColor: Colors.white,
       builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.94,
+        return _KeyboardResponsiveBottomSheet(
           child: TabbyWebView(
             webUrl: webUrl,
             onResult: onResult,
@@ -86,7 +87,7 @@ class _TabbyWebViewState extends State<TabbyWebView> {
             value: _progress,
             color: tabbyColor,
             backgroundColor: Colors.black,
-          )
+          ),
         ],
         Expanded(
           key: webViewKey,
@@ -95,6 +96,31 @@ class _TabbyWebViewState extends State<TabbyWebView> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _KeyboardResponsiveBottomSheet extends StatelessWidget {
+  const _KeyboardResponsiveBottomSheet({
+    required this.child,
+  });
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final viewInsets = MediaQuery.of(context).viewInsets;
+
+    return AnimatedPadding(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+      padding: EdgeInsets.only(bottom: viewInsets.bottom),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        ),
+        child: child,
+      ),
     );
   }
 }
