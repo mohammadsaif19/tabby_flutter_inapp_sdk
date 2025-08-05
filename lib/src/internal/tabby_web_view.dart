@@ -89,6 +89,7 @@ class _TabbyWebViewState extends State<TabbyWebView> {
             backgroundColor: Colors.black,
           ),
         ],
+        const SizedBox(width: double.infinity),
         Expanded(
           key: webViewKey,
           child: WebViewWidget(
