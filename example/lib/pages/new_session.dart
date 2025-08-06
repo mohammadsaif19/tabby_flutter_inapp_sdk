@@ -18,7 +18,7 @@ class _NewSessionState extends State<NewSession> {
 
   String _amount = '340';
   late TextEditingController _amountController;
-  String _email = 'card.success@tabby.ai';
+  String _email = 'id.card.success@tabby.ai';
   late TextEditingController _emailController;
   String _phone = '+971500000001';
   late TextEditingController _phoneController;
@@ -91,11 +91,7 @@ class _NewSessionState extends State<NewSession> {
     if (session == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(
-        const SnackBar(
-          content: Text('Session not available'),
-        ),
-      );
+      ).showSnackBar(const SnackBar(content: Text('Session not available')));
       return;
     }
     if (session!.status == SessionStatus.rejected) {
@@ -112,11 +108,7 @@ class _NewSessionState extends State<NewSession> {
     if (session!.availableProducts.installments == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(
-        const SnackBar(
-          content: Text('Session has no products'),
-        ),
-      );
+      ).showSnackBar(const SnackBar(content: Text('Session has no products')));
       return;
     }
     Navigator.pushNamed(
@@ -132,11 +124,7 @@ class _NewSessionState extends State<NewSession> {
     if (session == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(
-        const SnackBar(
-          content: Text('Session not available'),
-        ),
-      );
+      ).showSnackBar(const SnackBar(content: Text('Session not available')));
       return;
     }
     if (session!.status == SessionStatus.rejected) {
@@ -150,11 +138,7 @@ class _NewSessionState extends State<NewSession> {
     if (session!.availableProducts.installments == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(
-        const SnackBar(
-          content: Text('Session has no products'),
-        ),
-      );
+      ).showSnackBar(const SnackBar(content: Text('Session has no products')));
       return;
     }
     TabbyWebView.showWebView(

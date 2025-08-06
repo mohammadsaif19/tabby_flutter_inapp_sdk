@@ -3,9 +3,18 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as image;
+import 'package:image_picker/image_picker.dart' as image_picker;
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+// Import for Android features.
+// ignore: depend_on_referenced_packages
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+// Import for iOS/macOS features.
+// ignore: depend_on_referenced_packages
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 void printError(Object error, StackTrace stackTrace) {
   debugPrint('Exception: $error');
@@ -92,10 +101,47 @@ String getPrice({
   return installmentPrice;
 }
 
+Future<List<String>> _androidFilePicker(FileSelectorParams params) async {
+  if (params.acceptTypes.any((type) => type.contains('image'))) {
+    final picker = image_picker.ImagePicker();
+    final photo =
+        await picker.pickImage(source: image_picker.ImageSource.gallery);
+
+    if (photo == null) {
+      return [];
+    }
+
+    final imageData = await photo.readAsBytes();
+    final decodedImage = image.decodeImage(imageData)!;
+    final scaledImage = image.copyResize(decodedImage, width: 500);
+    final jpg = image.encodeJpg(scaledImage, quality: 90);
+
+    final filePath = (await getTemporaryDirectory()).uri.resolve(
+          './image_${DateTime.now().microsecondsSinceEpoch}.jpg',
+        );
+    final file = await File.fromUri(filePath).create(recursive: true);
+    await file.writeAsBytes(jpg, flush: true);
+
+    return [file.uri.toString()];
+  }
+
+  return [];
+}
+
 WebViewController createBaseWebViewController(
   void Function(JavaScriptMessage) bridgeMessagesHandler,
 ) {
-  return WebViewController(
+  late final PlatformWebViewControllerCreationParams params;
+  if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+    params = WebKitWebViewControllerCreationParams(
+      allowsInlineMediaPlayback: true,
+      mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+    );
+  } else {
+    params = const PlatformWebViewControllerCreationParams();
+  }
+  final controller = WebViewController.fromPlatformCreationParams(
+    params,
     onPermissionRequest: (request) async {
       final resources = request.platform.types.toList();
       if (resources.isEmpty) {
@@ -133,4 +179,14 @@ WebViewController createBaseWebViewController(
         bridgeMessagesHandler(message);
       },
     );
+  if (controller.platform is AndroidWebViewController) {
+    (controller.platform as AndroidWebViewController)
+      ..setMediaPlaybackRequiresUserGesture(false)
+      ..setOnShowFileSelector(
+        (params) async {
+          return _androidFilePicker(params);
+        },
+      );
+  }
+  return controller;
 }

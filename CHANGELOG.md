@@ -1,3 +1,6 @@
+# 1.11.0
+- [Android] Resolved issue of user sometimes unable to attach files during the checkout
+
 # 1.10.1
 - Minor fix: removing `setOnConsoleMessage` as not needed
 

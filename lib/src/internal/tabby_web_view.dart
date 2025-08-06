@@ -29,13 +29,17 @@ class TabbyWebView extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       enableDrag: false,
+      useSafeArea: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.zero,
+        ),
+      ),
       builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.94,
-          child: TabbyWebView(
-            webUrl: webUrl,
-            onResult: onResult,
-          ),
+        return TabbyWebView(
+          webUrl: webUrl,
+          onResult: onResult,
         );
       },
     );
@@ -86,8 +90,9 @@ class _TabbyWebViewState extends State<TabbyWebView> {
             value: _progress,
             color: tabbyColor,
             backgroundColor: Colors.black,
-          )
+          ),
         ],
+        const SizedBox(width: double.infinity),
         Expanded(
           key: webViewKey,
           child: WebViewWidget(
