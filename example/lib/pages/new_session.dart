@@ -61,21 +61,20 @@ class _NewSessionState extends State<NewSession> {
   Future<void> createSession() async {
     try {
       _setStatus('pending');
-
-      final s = await TabbySDK().createSession(
-        TabbyCheckoutPayload(
-          merchantCode: _merchantCode,
-          lang: lang,
-          payment: createMockPayload(
-            amount: _amount,
-            currency: _selectedCurrency,
-            email: _email,
-            phone: _phone,
-          ),
+      TabbyCheckoutPayload payload = TabbyCheckoutPayload(
+        merchantCode: _merchantCode,
+        lang: lang,
+        payment: createMockPayload(
+          amount: _amount,
+          currency: _selectedCurrency,
+          email: _email,
+          phone: _phone,
         ),
       );
 
+      final s = await TabbySDK().createSession(payload);
       debugPrint('Session id: ${s.sessionId}');
+      debugPrint('Payload: ${payload.toJson()}');
 
       setState(() {
         session = s;

@@ -349,6 +349,7 @@ class Payment {
     required this.orderHistory,
     this.description,
     this.attachment,
+    this.meta,
   });
 
   final String amount;
@@ -361,6 +362,15 @@ class Payment {
   final String? description;
   final Attachment? attachment;
 
+  /// Meta data to be sent along with the payment object.
+  /// ```dart
+  ///   "meta": {
+  ///          "customer": "#customer-id",
+  ///          "order_id": "#1234"
+  ///         },
+  /// ```
+  final Map<String, dynamic>? meta;
+
   Map<String, dynamic> toJson() {
     return {
       'amount': amount,
@@ -369,9 +379,12 @@ class Payment {
       'buyer_history': buyerHistory.toJson(),
       'shipping_address': shippingAddress?.toJson(),
       'order': order.toJson(),
-      'order_history': orderHistory,
+      'order_history': orderHistory.map((o) => o.toJson()).toList(),
       'description': description,
       'attachment': attachment?.toJson(),
+
+      /// Meta data to be sent along with the payment object if there is any.
+      if (meta != null) 'meta': meta,
     };
   }
 }
@@ -441,7 +454,7 @@ class Order {
   Map<String, dynamic> toJson() {
     return {
       'reference_id': referenceId,
-      'items': items,
+      'items': items.map((i) => i.toJson()).toList(),
       'shipping_amount': shippingAmount,
       'tax_amount': taxAmount,
       'discount_amount': discountAmount,
@@ -476,7 +489,7 @@ class OrderHistoryItem {
       'payment_method': paymentMethod?.name,
       'buyer': buyer,
       'shipping_address': shippingAddress,
-      'items': items,
+      'items': items?.map((i) => i.toJson()).toList(),
     };
   }
 }
@@ -572,7 +585,7 @@ class TabbyCheckoutPayload {
     return {
       'merchant_code': merchantCode,
       'lang': lang.name,
-      'payment': payment,
+      'payment': payment.toJson(),
     };
   }
 }

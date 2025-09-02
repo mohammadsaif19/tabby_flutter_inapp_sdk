@@ -9,11 +9,7 @@ Payment createMockPayload({
   return Payment(
     amount: amount,
     currency: currency,
-    buyer: Buyer(
-      email: email,
-      phone: phone,
-      name: 'Mohammad Khalid',
-    ),
+    buyer: Buyer(email: email, phone: phone, name: 'Mohammad Khalid'),
     buyerHistory: BuyerHistory(
       loyaltyLevel: 0,
       registeredSince: '2019-08-24T14:15:22Z',
@@ -38,7 +34,7 @@ Payment createMockPayload({
           referenceId: 'uuid',
           productUrl: 'http://example.com',
           category: 'clothes',
-        )
+        ),
       ],
     ),
     orderHistory: [
@@ -47,7 +43,9 @@ Payment createMockPayload({
         amount: '10.00',
         paymentMethod: OrderHistoryItemPaymentMethod.card,
         status: OrderHistoryItemStatus.newOne,
-      )
+      ),
     ],
+
+    meta: {"custom_id": "custom_uid_value", "notes": "any notes"},
   );
 }
