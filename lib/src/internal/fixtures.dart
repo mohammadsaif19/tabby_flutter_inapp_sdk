@@ -1,4 +1,4 @@
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 final defaultMerchantUrls = MerchantUrls(
   success: 'https://checkout.tabby.ai/success.html',

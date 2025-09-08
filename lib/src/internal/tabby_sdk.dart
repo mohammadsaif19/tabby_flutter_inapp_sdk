@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:tabby_flutter_inapp_sdk/src/internal/headers.dart';
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/src/internal/headers.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();

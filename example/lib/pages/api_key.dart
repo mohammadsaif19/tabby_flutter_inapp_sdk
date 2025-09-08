@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 const _preConfiguredApiKey = String.fromEnvironment(
   'demoapp.apiKey',
@@ -21,10 +21,9 @@ class ApiKeyPage extends StatefulWidget {
 
 class _ApiKeyPageState extends State<ApiKeyPage> {
   late TextEditingController _apiKeyController;
-  Environment _env =
-      _preConfiguredEnv == Environment.staging.name
-          ? Environment.staging
-          : Environment.production;
+  Environment _env = _preConfiguredEnv == Environment.staging.name
+      ? Environment.staging
+      : Environment.production;
   String _apiKey = kDebugMode ? _preConfiguredApiKey : '';
 
   void openNextPage() {
@@ -78,13 +77,12 @@ class _ApiKeyPageState extends State<ApiKeyPage> {
                   value: _env,
                   isExpanded: true,
                   hint: const Text('Change Environment'),
-                  items:
-                      Environment.values.map((Environment e) {
-                        return DropdownMenuItem<Environment>(
-                          value: e,
-                          child: Text("${e.name.toUpperCase()} (${e.host})"),
-                        );
-                      }).toList(),
+                  items: Environment.values.map((Environment e) {
+                    return DropdownMenuItem<Environment>(
+                      value: e,
+                      child: Text("${e.name.toUpperCase()} (${e.host})"),
+                    );
+                  }).toList(),
                   onChanged: _updateEnvironment,
                 ),
               ),

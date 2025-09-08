@@ -1,4 +1,4 @@
-library tabby_flutter_inapp_sdk;
+library tabby_flutter_inapp_sdk_fork;
 
 export './src/internal/tabby_product_page_snippet.dart';
 export './src/internal/tabby_sdk.dart';

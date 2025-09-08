@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter/mock.dart';
 import 'package:tabby_flutter/pages/chechout_page.dart';
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 class NewSession extends StatefulWidget {
   const NewSession({super.key});
@@ -94,8 +94,7 @@ class _NewSessionState extends State<NewSession> {
       return;
     }
     if (session!.status == SessionStatus.rejected) {
-      final rejectionText =
-          session!.rejectionReason ??
+      final rejectionText = session!.rejectionReason ??
           (lang == Lang.ar
               ? TabbySDK.rejectionTextAr
               : TabbySDK.rejectionTextEn);
@@ -194,8 +193,7 @@ class _NewSessionState extends State<NewSession> {
 
   @override
   Widget build(BuildContext context) {
-    final isReadyToSubmit =
-        _amount.isNotEmpty &&
+    final isReadyToSubmit = _amount.isNotEmpty &&
         _email.isNotEmpty &&
         _phone.isNotEmpty &&
         _merchantCode.isNotEmpty;
@@ -254,13 +252,12 @@ class _NewSessionState extends State<NewSession> {
                             value: _selectedCurrency,
                             isExpanded: true,
                             hint: const Text('Select Currency'),
-                            items:
-                                Currency.values.map((Currency currency) {
-                                  return DropdownMenuItem<Currency>(
-                                    value: currency,
-                                    child: Text(currency.name.toUpperCase()),
-                                  );
-                                }).toList(),
+                            items: Currency.values.map((Currency currency) {
+                              return DropdownMenuItem<Currency>(
+                                value: currency,
+                                child: Text(currency.name.toUpperCase()),
+                              );
+                            }).toList(),
                             onChanged: _updateCurrency,
                           ),
                         ),
@@ -320,47 +317,45 @@ class _NewSessionState extends State<NewSession> {
               const Spacer(),
               session == null
                   ? ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 48),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        shadowColor: Colors.transparent,
                       ),
-                      elevation: 0,
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                      shadowColor: Colors.transparent,
-                    ),
-                    onPressed:
-                        !isReadyToSubmit
-                            ? null
-                            : _status == 'pending'
-                            ? noop
-                            : createSession,
-                    child:
-                        _status == 'pending'
-                            ? const SizedBox(
+                      onPressed: !isReadyToSubmit
+                          ? null
+                          : _status == 'pending'
+                              ? noop
+                              : createSession,
+                      child: _status == 'pending'
+                          ? const SizedBox(
                               width: 24.0, // Set desired width
                               height: 24.0, // Set desired height
                               child: CircularProgressIndicator(
                                 color: Colors.white,
                               ),
                             )
-                            : const Text('Create Session'),
-                  )
+                          : const Text('Create Session'),
+                    )
                   : ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 48),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        shadowColor: Colors.transparent,
                       ),
-                      elevation: 0,
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                      shadowColor: Colors.transparent,
+                      onPressed: openInAppBrowser,
+                      child: const Text('Open checkout in-app browser'),
                     ),
-                    onPressed: openInAppBrowser,
-                    child: const Text('Open checkout in-app browser'),
-                  ),
               const SizedBox(height: 8),
             ],
           ),

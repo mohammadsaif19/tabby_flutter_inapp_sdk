@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 import './enums.dart';
 

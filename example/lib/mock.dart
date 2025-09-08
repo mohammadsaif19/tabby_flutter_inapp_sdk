@@ -1,4 +1,4 @@
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 Payment createMockPayload({
   required String amount,
@@ -45,7 +45,6 @@ Payment createMockPayload({
         status: OrderHistoryItemStatus.newOne,
       ),
     ],
-
     meta: {"custom_id": "custom_uid_value", "notes": "any notes"},
   );
 }

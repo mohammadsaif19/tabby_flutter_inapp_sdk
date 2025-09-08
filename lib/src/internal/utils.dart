@@ -7,7 +7,7 @@ import 'package:image/image.dart' as image;
 import 'package:image_picker/image_picker.dart' as image_picker;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // Import for Android features.
 // ignore: depend_on_referenced_packages

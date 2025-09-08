@@ -1,4 +1,4 @@
-name: tabby_flutter_inapp_sdk
+name: tabby_flutter_inapp_sdk_fork
 description: Flutter SDK for Tabby Buy Now, Pay Later. A package that allows you to integrate Tabby payment methods into your Flutter app.
 version: 1.11.0
 homepage: https://github.com/tabby-ai/tabby_flutter_inapp_sdk

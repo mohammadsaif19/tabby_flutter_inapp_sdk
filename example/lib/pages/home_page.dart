@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -152,13 +152,12 @@ class _HomePageState extends State<HomePage> {
                             value: _selectedCurrency,
                             isExpanded: true,
                             hint: const Text('Select Currency'),
-                            items:
-                                Currency.values.map((Currency currency) {
-                                  return DropdownMenuItem<Currency>(
-                                    value: currency,
-                                    child: Text(currency.name.toUpperCase()),
-                                  );
-                                }).toList(),
+                            items: Currency.values.map((Currency currency) {
+                              return DropdownMenuItem<Currency>(
+                                value: currency,
+                                child: Text(currency.name.toUpperCase()),
+                              );
+                            }).toList(),
                             onChanged: _updateCurrency,
                           ),
                         ),
@@ -185,13 +184,12 @@ class _HomePageState extends State<HomePage> {
                             value: _selectedLanguage,
                             isExpanded: true,
                             hint: const Text('Select Language'),
-                            items:
-                                Lang.values.map((Lang l) {
-                                  return DropdownMenuItem<Lang>(
-                                    value: l,
-                                    child: Text(l.displayName),
-                                  );
-                                }).toList(),
+                            items: Lang.values.map((Lang l) {
+                              return DropdownMenuItem<Lang>(
+                                value: l,
+                                child: Text(l.displayName),
+                              );
+                            }).toList(),
                             onChanged: _updateLanguage,
                           ),
                         ),
@@ -200,7 +198,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 8),
               const Divider(),
               const SizedBox(height: 8),
