@@ -1,10 +1,17 @@
+# 1.11.1
+
+- Resolved issue of checkout snippet without initalizaing the sdk.
+
 # 1.11.0
+
 - [Android] Resolved issue of user sometimes unable to attach files during the checkout
 
 # 1.10.1
+
 - Minor fix: removing `setOnConsoleMessage` as not needed
 
 # 1.10.0
+
 - Getting rid of deprecated `TabbyCheckoutSnippet`
 - Getting rid of deprecated `TabbyPresentationSnippetNonStantard`
 - ❗️ Breaking change: Getting rid of deprecated `TabbyPresentationSnippet`. Please use `TabbyProductPageSnippet` instead - it's an easy migration
@@ -12,21 +19,25 @@
 - Lowering code dependency on `flutter_inappwebview` package, using `webview_flutter` instead
 
 # 1.9.0
+
 - Updating example app to the latest Flutter version
 - Migrating `TabbyWebView` from using `flutter_inappwebview` to more stable `webview_flutter`
 
 # 1.8.1
+
 - Fixed typo in package description
 
 # 1.8.0
+
 - `TabbyWebView` is now in charge of managing permissions requests asked by the web page. The `TabbyWebView` will ask for permissions only when needed
 - ❗ Important: please refer to Readme.md and update your integration to handle the new `TabbyWebView` behavior
-- Example app reworked to demonstrate the new `TabbyWebView` behavior 
+- Example app reworked to demonstrate the new `TabbyWebView` behavior
 
 # 1.7.0
+
 - Added `SessionStatus`
 - ❗ Important: The `TabbySession.status` can now be either `SessionStatus.rejected` or `SessionStatus.created`. Some customers may be rejected immediately after a session creation. You need to handle this scenario before opening `TabbyWebView`.
-For reference, check the example implementation in `example/lib/pages/home_page.dart`, specifically the functions: `void openInAppBrowser() {...}` and `void openCheckOutPage() {...}`
+  For reference, check the example implementation in `example/lib/pages/home_page.dart`, specifically the functions: `void openInAppBrowser() {...}` and `void openCheckOutPage() {...}`
 - Added `TabbySDK.rejectionTextEn` and `TabbySDK.rejectionTextAr`
 
 # 1.6.2

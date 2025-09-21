@@ -13,6 +13,7 @@ class TabbyProductPageSnippet extends StatefulWidget {
     required this.merchantCode,
     required this.apiKey,
     this.installmentsCount = 4,
+    this.environment = Environment.production,
     Key? key,
   }) : super(key: key);
   final double price;
@@ -21,6 +22,7 @@ class TabbyProductPageSnippet extends StatefulWidget {
   final String merchantCode;
   final String apiKey;
   final int installmentsCount;
+  final Environment environment;
 
   @override
   State<TabbyProductPageSnippet> createState() =>
@@ -60,7 +62,7 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
 
   @override
   void initState() {
-    final address = '${TabbySDK().widgetsBaseUrl}'
+    final address = '${widget.environment.widgetsHost}'
         '?price=${widget.price}'
         '&currency=${widget.currency.displayName}'
         '&publicKey=${widget.apiKey}'
@@ -81,7 +83,7 @@ class _TabbyProductPageSnippetState extends State<TabbyProductPageSnippet> {
         oldWidget.merchantCode != widget.merchantCode ||
         oldWidget.apiKey != widget.apiKey ||
         oldWidget.installmentsCount != widget.installmentsCount) {
-      final address = '${TabbySDK().widgetsBaseUrl}'
+      final address = '${widget.environment.widgetsHost}'
           '?price=${widget.price}'
           '&currency=${widget.currency.displayName}'
           '&publicKey=${widget.apiKey}'
