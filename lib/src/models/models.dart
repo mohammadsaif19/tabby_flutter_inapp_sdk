@@ -487,8 +487,8 @@ class OrderHistoryItem {
       'status': status.name,
       'purchased_at': purchasedAt,
       'payment_method': paymentMethod?.name,
-      'buyer': buyer,
-      'shipping_address': shippingAddress,
+      'buyer': buyer?.toJson(),
+      'shipping_address': shippingAddress?.toJson(),
       'items': items?.map((i) => i.toJson()).toList(),
     };
   }

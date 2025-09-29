@@ -1,3 +1,7 @@
+# 1.11.2
+
+- Resolved issue of checkout with buyer history dto.
+
 # 1.11.1
 
 - Resolved issue of checkout snippet without initalizaing the sdk.

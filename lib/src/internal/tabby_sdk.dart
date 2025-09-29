@@ -41,6 +41,14 @@ class TabbySDK implements TabbyWithRemoteDataSource {
   String get publicKey => _apiKey;
   String get widgetsBaseUrl => _widgetsHost;
 
+  bool get isSdkInitialized {
+    try {
+      return _apiKey.isNotEmpty && _host.isNotEmpty;
+    } catch (e) {
+      return false;
+    }
+  }
+
   @override
   void setup({
     required String withApiKey,
